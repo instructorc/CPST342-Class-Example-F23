@@ -1,3 +1,4 @@
+
 const http = require('http'); //Core Builtin Module
 const fs = require('fs'); //Core/Builtin Module
 
@@ -15,6 +16,7 @@ const server = http.createServer((req, res) => {
         
     }else if(req.url == "/contact" && req.method == "GET"){
         res.writeHead(200, {'Content-Type': 'text/html'});
+        
         fs.readFile("contact.html", function(err, data){
 
             res.write(data);

@@ -1,0 +1,24 @@
+{
+  "name": "cpst342-class-example-f23",
+  "version": "1.0.0",
+  "description": "This repository contains examples from our sychronous class session.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/instructorc/CPST342-Class-Example-F23.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/instructorc/CPST342-Class-Example-F23/issues"
+  },
+  "homepage": "https://github.com/instructorc/CPST342-Class-Example-F23#readme",
+  "dependencies": {
+    "random": "^4.1.0"
+  }
+}
