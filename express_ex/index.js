@@ -1,6 +1,9 @@
 const express = require('express')
+var hbs = require('hbs').__express
+const axios = require('axios')
 const app = express()
 const port = 3000
+var dbfunctions = require('./database.js')
 
 
 /**To serve static files such as images, CSS files, and JavaScript files, create a folders
@@ -11,7 +14,7 @@ app.use(express.static('assets'))
 // view engine setup -> We'll use handlebars.js as our templating engine
 app.set('view engine', 'html');
 // allows our application to use .html extension | *Create a views folder and add your HTML documents
-app.engine('html', require('hbs').__express);
+app.engine('html', hbs);
 
 // parse application/json
 app.use(express.json());
@@ -22,8 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.get('/', function (req, res) {
+
+	dbfunctions.getUsers(res);
     
-    res.render('home', { title: "Routing in Action!", aName: "Claire", aNameAgain: "Brianna"})
+    
     
 })
 
@@ -38,7 +43,27 @@ app.get('/users/:id', function (req, res) {
 
 app.get('/contact', function (req, res) {
 
-	res.render( 'contact', {title : "Contact Page"})
+	axios.get('https://data.cityofchicago.org/resource/d6ui-3yap.json')
+	.then((response) => {
+		var all_data = response.data;
+	  console.log(all_data);
+	  
+	  res.render( 'contact', {title : "Contact Page", title_description: all_data[2].title_description})
+	});
+
+	/*const getData = async () => {
+		const getResponse = await axios
+		  .get("https://data.cityofchicago.org/resource/d6ui-3yap.json")
+		  .then((response) => response)
+		  .catch((err) => console.log(err));
+		return getResponse;
+	  
+		
+	  };
+
+	  console.log(getData);*/
+
+	
  })
 
  app.post('/submit', function (req, res) {
@@ -52,5 +77,7 @@ app.get('/contact', function (req, res) {
 	console.log(firstName + " " + lastName + " " + id );
 	res.render( 'contact', {title : "Contact Page"})
  })
+
+
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
